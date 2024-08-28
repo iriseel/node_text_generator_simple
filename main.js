@@ -13,7 +13,7 @@ let progress = 0;
 let endPoints = [];
 
 let minGap = 1;
-let maxGap = 4;
+// let maxGap = 4;
 // let gap = 1;
 const fontSize = 240;
 
@@ -148,7 +148,7 @@ function setup() {
         // console.log(charPoints);
 
         // word.maxGap = Math.floor(charPoints.length / 2);
-        word.maxGap = maxGap;
+        // word.maxGap = maxGap;
 
         // word.gap = getRandomInteger(minGap, word.maxGap);
         word.gap = minGap;
