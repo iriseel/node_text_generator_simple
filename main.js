@@ -91,6 +91,138 @@ let BigArtGroup = [
     { letter: "p", points: [], width: undefined },
 ];
 
+let CatherineChen_GeorgiosCherouvim = [
+    // { letter: "C", points: [], width: undefined },
+    // { letter: "a", points: [], width: undefined },
+    // { letter: "t", points: [], width: undefined },
+    // { letter: "h", points: [], width: undefined },
+    // { letter: "e", points: [], width: undefined },
+    // { letter: "r", points: [], width: undefined },
+    // { letter: "i", points: [], width: undefined },
+    // { letter: "n", points: [], width: undefined },
+    // { letter: "e", points: [], width: undefined },
+    // { letter: " ", points: [], width: undefined },
+    // { letter: "C", points: [], width: undefined },
+    // { letter: "h", points: [], width: undefined },
+    // { letter: "e", points: [], width: undefined },
+    // { letter: "n", points: [], width: undefined },
+    // { letter: " ", points: [], width: undefined },
+    // { letter: "&", points: [], width: undefined },
+    // { letter: " ", points: [], width: undefined },
+    { letter: "G", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "g", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "C", points: [], width: undefined },
+    { letter: "h", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "u", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+];
+
+let CaylaMaeSimpson = [
+    { letter: "C", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "y", points: [], width: undefined },
+    { letter: "l", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "M", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "S", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+    { letter: "p", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+];
+
+let ChiaAmisola = [
+    { letter: "C", points: [], width: undefined },
+    { letter: "h", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "A", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "l", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+];
+
+let DennisRedMoonDarkeem = [
+    { letter: "D", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "R", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "d", points: [], width: undefined },
+    { letter: "M", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "D", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "k", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+];
+
+let EvaDavidova = [
+    { letter: "E", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "D", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "d", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+];
+
+let TemitopeOlujobi = [
+    { letter: "T", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "p", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "O", points: [], width: undefined },
+    { letter: "l", points: [], width: undefined },
+    { letter: "u", points: [], width: undefined },
+    { letter: "j", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "b", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+];
+
 // let words = [
 //     // { letter: "Resident", points: [] },
 //     // { letter: "Artists", points: [] },
@@ -101,18 +233,25 @@ let BigArtGroup = [
 let linesDrawn = false;
 let allCaps_set = false;
 let mixedCaps_set = false;
-let Artists_set = false;
+
+let words;
 
 // SET TEXT TO ANIMATE
-let words = CULTUREHUB;
-// let words = Resident;
-// let words = Artists;
+// words = CULTUREHUB;
+// words = Resident;
+// words = Artists;
 
-// let words = ArtJones;
-// let words = BigArtGroup;
+// words = ArtJones;
+// words = BigArtGroup;
+// words = CatherineChen_GeorgiosCherouvim;
+words = DennisRedMoonDarkeem;
+// words = CaylaMaeSimpson;
+// words = ChiaAmisola;
+// words = EvaDavidova;
+// words = TemitopeOlujobi;
 
-allCaps_set = true;
-// mixedCaps_set = true;
+// allCaps_set = true;
+mixedCaps_set = true;
 
 function preload() {
     font = loadFont("assets/fonts/replicaStdRegular.otf");
@@ -168,10 +307,13 @@ function setup() {
             // change spacing for Resident
             if (word.letter === "R") {
                 word.width = textWidth(word.letter) * 0.9;
+            } else if (word.letter === "T") {
+                word.width = textWidth(word.letter) * 0.8;
             } else if (
                 word.letter === "e" ||
                 word.letter === "s" ||
-                word.letter === "G"
+                word.letter === "G" ||
+                word.letter === "a"
             ) {
                 word.width = textWidth(word.letter) * 0.95;
             } else if (word.letter === "i") {
@@ -179,21 +321,13 @@ function setup() {
             } else if (word.letter === "A") {
                 word.width = textWidth(word.letter) * 0.952;
             } else if (word.letter === "r") {
-                word.width = textWidth(word.letter) * 1.26;
+                word.width = textWidth(word.letter) * 1.2;
+            } else if (word.letter === "f" || word.letter === "-") {
+                word.width = textWidth(word.letter) * 1.38;
+            } else if (word.letter === "t") {
+                word.width = textWidth(word.letter) * 1.5;
             }
             xOffset += word.width; // Offset for the next character
-        } else if (Artists_set) {
-            // change spacing for Artists
-            // if (word.letter === "A") {
-            //     word.width = textWidth(word.letter) * 0.68;
-            // } else if (word.letter === "r") {
-            //     word.width = textWidth(word.letter) * 0.9;
-            // } else if (word.letter === "i") {
-            //     word.width = textWidth(word.letter) * 0.8;
-            // } else if (word.letter === "s") {
-            //     word.width = textWidth(word.letter) * 0.7;
-            // }
-            // xOffset += word.width * 1.4; // Offset for the next character
         } else {
             xOffset += word.width; // Offset for the next character
         }

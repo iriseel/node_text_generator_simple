@@ -3,8 +3,12 @@ let bgColor = "orange";
 let CultureHubBlue = "#1eb5f5";
 
 // DRAW VARIABLES
-let strokeValueThin = 4;
-let strokeValueThick = 12;
+let strokeValueThin_Quotes = 4;
+let strokeValueThick_Quotes = 12;
+let strokeValueThin = 4 * 1.5;
+let strokeValueThick = 12 * 1.5;
+let sampleFactor_default = 0.06;
+let sampleFactor_Quotes = sampleFactor_default * 2;
 
 // TEXT VARIABLES
 let font;
@@ -15,7 +19,8 @@ let endPoints = [];
 let minGap = 1;
 // let maxGap = 4;
 // let gap = 1;
-const fontSize = 240;
+let fontSize = 240;
+fontSize_Quotes = fontSize * 2;
 
 let leftQuote = [
     { letter: "‘", points: [], width: undefined },
@@ -121,15 +126,15 @@ let ArtJones_Quote2 = [
 let BigArtGroup_Quote = [
     // AI-driven performance techniques and community action
     // AI-driven
-    { letter: "A", points: [], width: undefined },
-    { letter: "I", points: [], width: undefined },
-    { letter: "-", points: [], width: undefined },
-    { letter: "d", points: [], width: undefined },
-    { letter: "r", points: [], width: undefined },
-    { letter: "i", points: [], width: undefined },
-    { letter: "v", points: [], width: undefined },
-    { letter: "e", points: [], width: undefined },
-    { letter: "n", points: [], width: undefined },
+    // { letter: "A", points: [], width: undefined },
+    // { letter: "I", points: [], width: undefined },
+    // { letter: "-", points: [], width: undefined },
+    // { letter: "d", points: [], width: undefined },
+    // { letter: "r", points: [], width: undefined },
+    // { letter: "i", points: [], width: undefined },
+    // { letter: "v", points: [], width: undefined },
+    // { letter: "e", points: [], width: undefined },
+    // { letter: "n", points: [], width: undefined },
     // performance
     // { letter: "p", points: [], width: undefined },
     // { letter: "e", points: [], width: undefined },
@@ -143,16 +148,17 @@ let BigArtGroup_Quote = [
     // { letter: "c", points: [], width: undefined },
     // { letter: "e", points: [], width: undefined },
     // techniques
-    // { letter: "t", points: [], width: undefined },
-    // { letter: "e", points: [], width: undefined },
-    // { letter: "c", points: [], width: undefined },
-    // { letter: "h", points: [], width: undefined },
-    // { letter: "n", points: [], width: undefined },
-    // { letter: "i", points: [], width: undefined },
-    // { letter: "q", points: [], width: undefined },
-    // { letter: "u", points: [], width: undefined },
-    // { letter: "e", points: [], width: undefined },
-    // { letter: "s", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "c", points: [], width: undefined },
+    { letter: "h", points: [], width: undefined },
+    // { letter: "-", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "q", points: [], width: undefined },
+    { letter: "u", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
     // and
     // { letter: "a", points: [], width: undefined },
     // { letter: "n", points: [], width: undefined },
@@ -177,17 +183,23 @@ let BigArtGroup_Quote = [
 ];
 // BOOLEANS
 let linesDrawn = false;
-let mixedCaps_set = false;
 
-// SET TEXT TO ANIMATE
+// CAP SETTINGS
+let mixedCaps_set = true;
+
+// QUOTE SETTINGS
+// strokeValueThin = strokeValueThin_Quotes;
+// strokeValueThick = strokeValueThick_Quotes;
+// fontSize = fontSize_Quotes;
+
+// SET WHICH TEXT TO ANIMATE
 let words;
 // words = leftQuote;
 // words = rightQuote;
 
+// words = ArtJones_Quote1;
 // words = ArtJones_Quote2;
 words = BigArtGroup_Quote;
-
-mixedCaps_set = true;
 
 function preload() {
     font = loadFont("assets/fonts/replicaStdRegular.otf");
@@ -215,7 +227,8 @@ function setup() {
             yOffset,
             fontSize,
             {
-                sampleFactor: 0.06, // Adjust for point density
+                sampleFactor: sampleFactor_Quotes, // Adjust for point density
+                // sampleFactor: sampleFactor_default,
                 simplifyThreshold: 0.0, // Adjust to simplify points
             }
         );
@@ -239,12 +252,14 @@ function setup() {
                 word.letter === "a"
             ) {
                 word.width = textWidth(word.letter) * 0.95;
-            } else if (word.letter === "i") {
-                word.width = textWidth(word.letter) * 1.1;
             } else if (word.letter === "A") {
                 word.width = textWidth(word.letter) * 0.952;
+            } else if (word.letter === "p") {
+                word.width = textWidth(word.letter) * 1.05;
+            } else if (word.letter === "i" || word.letter === "c") {
+                word.width = textWidth(word.letter) * 1.1;
             } else if (word.letter === "r") {
-                word.width = textWidth(word.letter) * 1.15;
+                word.width = textWidth(word.letter) * 1.2;
             } else if (word.letter === "f" || word.letter === "-") {
                 word.width = textWidth(word.letter) * 1.38;
             } else if (word.letter === "t") {
