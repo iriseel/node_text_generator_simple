@@ -1,8 +1,14 @@
+@font-face {
+    font-family: 'replica';
+    src: url(assets/fonts/replicaStdRegular.otf);
+}
+
 body {
     padding:0;
     margin:0;
     background: black;
     overflow:hidden;
+    font-family: replica;
 }
 
 /* Image Tracing */
@@ -20,4 +26,23 @@ body {
 
 .line-art {
     filter: url(#line-art) url(#sharpen-filter);
+}
+
+.menu {
+    position:fixed;
+    bottom:1em;
+    left:1em;
+    font-size: 3em;
+}
+
+select, input, button {
+    font-size:.75em;
+    background:transparent;
+    border:3px solid black;
+}
+
+.saveGIF {
+    background:black;
+    color:white;
+    opacity: .5;
 }

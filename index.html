@@ -7,12 +7,30 @@
     <link rel="stylesheet" href="style.css"> <!-- Optional: Link to a CSS file -->
 </head>
 <body>
+    <div class="menu">
+        <label for="settingsDropdown">Font settings:</label>
+        <select id="settingsDropdown">
+            <option value="default">Default (e.g., name, title)</option>
+            <option value="allCaps">All Caps</option>
+            <option value="quote">Artist quote</option>
+            <option value="quotationMarks">Quotation Marks</option>
+        </select>
+
+        <label for="textInput">Enter text:</label>
+        <input type="text" id="textInput" placeholder="Enter your text here">
+        <button class="convertText">Animate</button>
+
+        <button class="saveGIF">Save GIF</button>
+    </div>
+
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/ccapture.js@1.1.0/build/CCapture.all.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.gif.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
-    <script src="https://unpkg.com/p5.createloop@0.2.8/dist/p5.createloop.js"></script> -->
-
-
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
+        <script src="https://unpkg.com/p5.createloop@0.2.8/dist/p5.createloop.js"></script> -->
 
     <script src="main.js"></script>
     <!-- <script src="quotes.js"></script> -->

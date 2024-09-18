@@ -22,6 +22,233 @@ let minGap = 1;
 let fontSize = 240;
 fontSize_Quotes = fontSize * 2;
 
+let CULTUREHUB = [
+    { letter: "C", points: [], width: undefined },
+    { letter: "U", points: [], width: undefined },
+    { letter: "L", points: [], width: undefined },
+    { letter: "T", points: [], width: undefined },
+    { letter: "U", points: [], width: undefined },
+    { letter: "R", points: [], width: undefined },
+    { letter: "E", points: [], width: undefined },
+    { letter: "H", points: [], width: undefined },
+    { letter: "U", points: [], width: undefined },
+    { letter: "B", points: [], width: undefined },
+];
+
+let ResidentDefault = [
+    { letter: "R", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "d", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+];
+let Resident = [...ResidentDefault];
+
+let Artists = [
+    { letter: "A", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+];
+
+let year = [
+    { letter: "2", points: [], width: undefined },
+    { letter: "0", points: [], width: undefined },
+    { letter: "2", points: [], width: undefined },
+    { letter: "4", points: [], width: undefined },
+    { letter: "-", points: [], width: undefined },
+    { letter: "2", points: [], width: undefined },
+    { letter: "0", points: [], width: undefined },
+    { letter: "2", points: [], width: undefined },
+    { letter: "5", points: [], width: undefined },
+];
+
+let ArtJones = [
+    { letter: "A", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "J", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+];
+
+let BigArtGroup = [
+    { letter: "B", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "g", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "A", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "G", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "u", points: [], width: undefined },
+    { letter: "p", points: [], width: undefined },
+];
+
+let CatherineChen_GeorgiosCherouvim = [
+    // { letter: "C", points: [], width: undefined },
+    // { letter: "a", points: [], width: undefined },
+    // { letter: "t", points: [], width: undefined },
+    // { letter: "h", points: [], width: undefined },
+    // { letter: "e", points: [], width: undefined },
+    // { letter: "r", points: [], width: undefined },
+    // { letter: "i", points: [], width: undefined },
+    // { letter: "n", points: [], width: undefined },
+    // { letter: "e", points: [], width: undefined },
+    // { letter: " ", points: [], width: undefined },
+    // { letter: "C", points: [], width: undefined },
+    // { letter: "h", points: [], width: undefined },
+    // { letter: "e", points: [], width: undefined },
+    // { letter: "n", points: [], width: undefined },
+    // { letter: " ", points: [], width: undefined },
+    // { letter: "&", points: [], width: undefined },
+    // { letter: " ", points: [], width: undefined },
+    { letter: "G", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "g", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "C", points: [], width: undefined },
+    { letter: "h", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "u", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+];
+
+let CaylaMaeSimpson = [
+    { letter: "C", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "y", points: [], width: undefined },
+    { letter: "l", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "M", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "S", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+    { letter: "p", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+];
+
+let ChiaAmisola = [
+    { letter: "C", points: [], width: undefined },
+    { letter: "h", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "A", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "l", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+];
+
+let DennisRedMoonDarkeem = [
+    { letter: "D", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "s", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "R", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "d", points: [], width: undefined },
+    { letter: "M", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "n", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "D", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "r", points: [], width: undefined },
+    { letter: "k", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+];
+
+let EvaDavidova = [
+    { letter: "E", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "D", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "d", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "v", points: [], width: undefined },
+    { letter: "a", points: [], width: undefined },
+];
+
+let TemitopeOlujobi = [
+    { letter: "T", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: "m", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+    { letter: "t", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "p", points: [], width: undefined },
+    { letter: "e", points: [], width: undefined },
+    { letter: " ", points: [], width: undefined },
+    { letter: "O", points: [], width: undefined },
+    { letter: "l", points: [], width: undefined },
+    { letter: "u", points: [], width: undefined },
+    { letter: "j", points: [], width: undefined },
+    { letter: "o", points: [], width: undefined },
+    { letter: "b", points: [], width: undefined },
+    { letter: "i", points: [], width: undefined },
+];
+
+// let words = [
+//     // { letter: "Resident", points: [] },
+//     // { letter: "Artists", points: [] },
+//     // { letter: "2024-2025", points: [] },
+// ];
+
+// SET TEXT TO ANIMATE
+// words = CULTUREHUB;
+words = Resident;
+// words = Artists;
+
+// words = ArtJones;
+// words = BigArtGroup;
+// words = CatherineChen_GeorgiosCherouvim;
+// words = DennisRedMoonDarkeem;
+// words = CaylaMaeSimpson;
+// words = ChiaAmisola;
+// words = EvaDavidova;
+// words = TemitopeOlujobi;
+
 let leftQuote = [
     { letter: "‘", points: [], width: undefined },
     { letter: "‘", points: [], width: undefined },
