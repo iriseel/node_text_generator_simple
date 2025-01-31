@@ -126,7 +126,7 @@ function updateSettings(selection) {
         allCaps_set = true;
     } else if (selection === "quotationMarks") {
         sampleFactor = 0.06 * 2;
-        fontSize = 240 * 2;
+        fontSize = 230 * 2;
         mixedCaps_set = true;
     } else if (selection === "quote") {
         // strokeValueThin = 4 * 1.5;
