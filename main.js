@@ -25,7 +25,7 @@ let quotes_set = false;
 // SAVE GIF VARIABLES
 let capturer;
 let isRecording = false;
-let captureDuration = 2; // seconds
+let captureDuration = .000001; // seconds
 let fps = 30;
 let frameLimit = fps * captureDuration;
 const saveButton = document.querySelector(".saveGIF");
@@ -38,7 +38,7 @@ function preload() {
 function setup() {
     mainColor = color("#f0f0f0");
     createCanvas(windowWidth, windowHeight);
-    // frameRate(fps); // Set frame rate fps
+    frameRate(fps); // Set frame rate fps
 
     // Setup the CCapture object for GIF or MP4
     capturer = new CCapture({
@@ -211,25 +211,28 @@ function setWordSpace(word) {
         xOffset += word.width; // Offset for the next character
     } else if (mixedCaps_set || quotes_set) {
         if (word.letter === "T") {
-            word.width = word.width * 0.8;
+            // word.width = word.width * 0.8;
         } else if (word.letter === "E" || word.letter === "V") {
             word.width = word.width * 0.85;
-        } else if (word.letter === "R") {
+        } else if (word.letter === "R" ||
+            word.letter === "F" ) {
             word.width = word.width * 0.9;
         } else if (
-            word.letter === "e" ||
-            word.letter === "s" ||
-            word.letter === "G" ||
             word.letter === "a" ||
-            word.letter === "S" ||
-            word.letter === "D"
+            word.letter === "e" ||
+            word.letter === "D" || 
+            word.letter === "G" ||
+            word.letter === "H" ||
+            word.letter === "O" ||
+            word.letter === "s" ||
+            word.letter === "S"
         ) {
             word.width = word.width * 0.95;
         } else if (word.letter === "A" || word.letter === "C") {
             word.width = word.width * 0.952;
-        } else if (word.letter === "p" || word.letter === "M") {
+        } else if ( word.letter === "M" || word.letter === "p") {
             word.width = word.width * 1.05;
-        } else if (word.letter === "i" || word.letter === "c") {
+        } else if (word.letter === "c" || word.letter === "i") {
             word.width = word.width * 1.1;
         } else if (word.letter === "r") {
             word.width = word.width * 1.2;
@@ -247,8 +250,9 @@ function setWordSpace(word) {
 function draw() {
     if (frameCount === 1 && !isRecording) {
         // Start recording only once
-        // isRecording = true;
-        // capturer.start(); // Start capturing frames
+        //!! This enables Save GIF button to be clicked!
+        isRecording = true;
+        capturer.start(); // Start capturing frames
     }
 
     // THICK LINES (outline stroke)
