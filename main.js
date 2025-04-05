@@ -1,26 +1,33 @@
-let mainColor;
-let bgColor = "orange";
-let CultureHubBlue = "#1eb5f5";
+//TRY OUT: Moving dots, animating the sample factor
 
-// TEXT VARIABLES
-let resultTextArray;
-let resultTextArrayDefault;
-
-let font;
-let points = [];
-let progress = 0;
-let endPoints = [];
-let minGap = 1;
-let xOffset;
-let yOffset;
-let words;
+// COLORS
+let mainColor = "white";
+let bgColor = "black";
+let lineColor = "blue";
 
 // BOOLEANS
 let firstRun = true;
 let linesDrawn = false;
-let allCaps_set = false;
-let mixedCaps_set = false;
-let quotes_set = false;
+
+// TEXT STYLE VARIABLES
+let sampleFactorValue = 0.1;
+let simplifyThresholdValue = 0.01;
+let progressIncrement = .015;
+//gapValue determines the distance between each point
+let gapValue = 1;
+let strokeValueThin = 4;
+let strokeValueThick = 12;
+let fontSize = 240;
+let xOffset;
+let yOffset;
+
+// TEXT VARIABLES
+let resultTextArray;
+let resultTextArrayDefault;
+let font;
+let points = [];
+let endPoints = [];
+let characters;
 
 // SAVE GIF VARIABLES
 let capturer;
@@ -31,12 +38,11 @@ let frameLimit = fps * captureDuration;
 const saveButton = document.querySelector(".saveGIF");
 
 function preload() {
-    font = loadFont("assets/fonts/replicaStdRegular.otf");
-    img = loadImage("/assets/imgs/ArtJones.jpg");
+    font = loadFont("assets/fonts/MoMA-Sans-Bold.otf");
+    // img = loadImage("/assets/imgs/ArtJones.jpg");
 }
 
 function setup() {
-    mainColor = color("#f0f0f0");
     createCanvas(windowWidth, windowHeight);
     frameRate(fps); // Set frame rate fps
 
@@ -58,24 +64,32 @@ function setup() {
     });
 
     // Initialize with default settings and text
-    generateTextArray("your text");
-    updateSettings("default");
-
-    // Add event listener to the settings dropdown
-    document
-        .getElementById("settingsDropdown")
-        .addEventListener("change", function () {
-            updateSettings(this.value);
-        });
+    generateTextArray("Lines of Belonging");
 
     // Add event listener to the text input button
-    document
-        .querySelector(".convertText")
-        .addEventListener("click", function () {
-            // Get the user input
-            let inputText = document.getElementById("textInput").value;
-            generateTextArray(inputText);
+    const textInput = document.querySelector(".convertText");
+    textInput.addEventListener("click", function () {
+        // Get the user input
+        let inputText = document.getElementById("textInput").value;
+        generateTextArray(inputText);
+    });
+
+    // General function to handle slider updates
+    function setupSlider(selector, valueSelector, variableName) {
+        const slider = document.querySelector(selector);
+        slider.addEventListener("input", function() {
+            updateSliderValue(this.value, valueSelector, variableName);
         });
+    }
+
+    // Set up all sliders
+    setupSlider(".sampleFactorSlider", ".sampleFactorValue", "sampleFactorValue");
+    setupSlider(".simplifyThresholdSlider", ".simplifyThresholdValue", "simplifyThresholdValue");
+    setupSlider(".progressIncrementSlider", ".progressIncrement", "progressIncrement");
+    setupSlider(".gapValueSlider", ".gapValue", "gapValue");
+    setupSlider(".strokeValueThinSlider", ".strokeValueThin", "strokeValueThin");
+    setupSlider(".fontSizeSlider", ".fontSize", "fontSize");
+
 }
 
 function generateTextArray(inputText) {
@@ -94,56 +108,8 @@ function generateTextArray(inputText) {
     // Log the resulting array to the console
     // console.log(resultTextArrayDefault);
 
-    //set default to reset back to when updateSettings()
+    //set default to reset back to restartAnimation()
     resultTextArray = [...resultTextArrayDefault];
-
-    // Need this condition so that it doesn't restart the animation on first load, beofre updateSettings() sets the fontsize etc. that restartAnimation() relies on
-    if (!firstRun) {
-        restartAnimation();
-    }
-
-    firstRun = false;
-}
-
-// Function to update drawing settings based on selection
-function updateSettings(selection) {
-    allCaps_set = false;
-    mixedCaps_set = false;
-    quotes_set = false;
-
-    strokeValueThin = 4;
-    strokeValueThick = 12;
-    fontSize = 240;
-    // smaller fontsize (for Dennis Redmoon)
-    // fontSize = 216;
-    // smaller fontsize (for Valerie McCann)
-    // fontSize = 228;
-    sampleFactor = 0.06;
-
-    if (selection === "default") {
-        mixedCaps_set = true;
-    } else if (selection === "allCaps") {
-        allCaps_set = true;
-    } else if (selection === "quotationMarks") {
-        sampleFactor = 0.06 * 2;
-        fontSize = 230 * 2;
-        mixedCaps_set = true;
-    } else if (selection === "quote") {
-        // strokeValueThin = 4 * 1.5;
-        // strokeValueThick = 12 * 1.5;
-        // sampleFactor = 0.06;
-
-        quotes_set = true;
-        strokeValueThin = 3;
-        strokeValueThick = 8;
-        let changeFactor = 0.44;
-        sampleFactor = (0.06 * 1) / changeFactor;
-        fontSize = 240 * changeFactor;
-    } else {
-        console.log("Invalid selection");
-    }
-
-    textSize(fontSize);
 
     restartAnimation();
 }
@@ -155,95 +121,65 @@ function restartAnimation() {
     capturer.stop();
     isRecording = false;
     background(bgColor);
-    words = [...resultTextArrayDefault];
-
-    words.forEach((word) => {
-        word.points = []; // Clear points array
-    });
-
-    // Generate points for each character in words
-    xOffset = 50;
+    textSize(fontSize);
+    //x- and y-Offset just determine the top and left margins of the text; xOffset needs to be reset every restartAnimation since it +=, so that it doesn't add up and then fall off the page
+    xOffset = 0;
     yOffset = fontSize;
-    words.forEach((word) => {
-        // for (let i = 0; i < word.length; i++) {
-        let charPoints = font.textToPoints(
-            word.letter,
+    characters = [...resultTextArrayDefault];
+
+    characters.forEach((character) => {
+        character.points = []; // Clear points array
+        // console.log(character); 
+
+        character.width = textWidth(character.letter);
+
+        // Check if character fits in current line
+        //width is a built-in p5.js variable — it represents the width of the canvas
+        if (xOffset + character.width > width) {
+            // Move to next line
+            xOffset = 0;
+            yOffset += fontSize * 1; // Adjust line height as needed
+        }
+
+        // Generate points for this character
+        const charPoints = font.textToPoints(
+            character.letter,
             xOffset,
             yOffset,
             fontSize,
             {
-                sampleFactor: sampleFactor, // Adjust for point density
-                simplifyThreshold: 0.0, // Adjust to simplify points
+                sampleFactor: sampleFactorValue,
+                simplifyThreshold: simplifyThresholdValue,
             }
         );
-        word.points.push(...charPoints);
-        word.gap = minGap;
+        
+        //trying to access better kerning values with bounds width, but not very successful
+        let bounds = font.textBounds(character.letter, xOffset, yOffset, fontSize);
+        let boundsWidth = bounds.w;
 
-        // need spacing wider for thicker outlined text
-        if (quotes_set) {
-            word.width = textWidth(word.letter) * 1.05;
-            if (word.letter === "V") {
-                word.width = word.width * 1.1;
-            }
-        } else {
-            word.width = textWidth(word.letter);
-        }
+        character.points.push(...charPoints);
+        character.gap = gapValue;
 
-        setWordSpace(word);
+        setCharacterSpace(character, boundsWidth);
     });
 
     linesDrawn = false;
     restartProgress();
 
-    draw(); // Restart the draw loop
-    loop();
+    // draw(); // Restart the draw loop
     frameCount = 0;
+    loop();
 }
 
-function setWordSpace(word) {
-    // change spacing for all-caps text (e.g. CULTUREHUB)
-    if (allCaps_set) {
-        if (word.letter === "L") {
-            word.width = word.width * 0.8;
-        } else if (word.letter === "E") {
-            word.width = word.width * 0.95;
-        }
-        xOffset += word.width; // Offset for the next character
-    } else if (mixedCaps_set || quotes_set) {
-        if (word.letter === "T") {
-            // word.width = word.width * 0.8;
-        } else if (word.letter === "E" || word.letter === "V") {
-            word.width = word.width * 0.85;
-        } else if (word.letter === "R" ||
-            word.letter === "F" ) {
-            word.width = word.width * 0.9;
-        } else if (
-            word.letter === "a" ||
-            word.letter === "e" ||
-            word.letter === "D" || 
-            word.letter === "G" ||
-            word.letter === "H" ||
-            word.letter === "O" ||
-            word.letter === "s" ||
-            word.letter === "S"
-        ) {
-            word.width = word.width * 0.95;
-        } else if (word.letter === "A" || word.letter === "C") {
-            word.width = word.width * 0.952;
-        } else if ( word.letter === "M" || word.letter === "p") {
-            word.width = word.width * 1.05;
-        } else if (word.letter === "c" || word.letter === "i") {
-            word.width = word.width * 1.1;
-        } else if (word.letter === "r") {
-            word.width = word.width * 1.2;
-        } else if (word.letter === "f" || word.letter === "-") {
-            word.width = word.width * 1.38;
-        } else if (word.letter === "t") {
-            word.width = word.width * 1.5;
-        }
-        xOffset += word.width; // Offset for the next character
-    } else {
-        xOffset += word.width; // Offset for the next character
+// This will be useful for kerning
+function setCharacterSpace(character, boundsWidth) {
+    if (character.letter === "T") {
+        // character.width = character.width * 0.8;
+    } 
+    else {
+        xOffset += character.width * 1.1; // Offset for the next character
+        // xOffset += boundsWidth * 1.2; // Offset for the next character
+
     }
 }
 
@@ -255,27 +191,26 @@ function draw() {
         capturer.start(); // Start capturing frames
     }
 
+    function createStroke(strokeColor, strokeW) {
+        stroke(strokeColor);
+        strokeWeight(strokeW);
+    }
+
     // THICK LINES (outline stroke)
-    stroke("black");
-    strokeWeight(strokeValueThick);
-
-    if (!linesDrawn) {
-        drawLinesWithinLetter();
-    }
-    drawLinesBetweenLetters();
-
+    createStroke("black", strokeValueThick);
     // THIN LINES (main stroke)
-    stroke("mainColor");
-    strokeWeight(strokeValueThin);
-
+    createStroke(mainColor, strokeValueThin);
     if (!linesDrawn) {
-        drawLinesWithinLetter();
+        // drawLinesWithinLetter();
+        drawDots();
     }
-    stroke(CultureHubBlue);
+    drawLinesWithinLetter2();
+
+    createStroke(lineColor, strokeValueThin);
     drawLinesBetweenLetters();
 
     // Increment progress for smooth animation
-    progress += 0.007; // Adjust this value for smoother/slower animation
+    progress += progressIncrement; // Adjust this value for smoother/slower animation
 
     if (progress >= 1) {
         linesDrawn = true;
@@ -301,23 +236,34 @@ function restartProgress() {
     // Generate new end points
     endPoints = [];
     generateEndPointsBetweenLetters();
+    generateEndPointsWithinLetters();
+}
+
+function drawDots() {
+    characters.forEach((character) => {
+        // Draw all lines gradually
+        character.points.forEach((point, index) => {
+            circle(point.x, point.y, 1);
+        });
+    });
 }
 
 //Connecting points within a letter
 function drawLinesWithinLetter() {
-    words.forEach((word) => {
+    characters.forEach((character) => {
         // Draw all lines gradually
-        word.points.forEach((point1, index) => {
+        character.points.forEach((point1, index) => {
             let point2;
-            if (index >= word.points.length - word.gap) {
-                point2 = word.points[index - word.gap];
+            if (index >= character.points.length - character.gap) {
+                point2 = character.points[index - character.gap];
             } else {
-                point2 = word.points[index + word.gap];
+                point2 = character.points[index + character.gap];
             }
 
             // Interpolate between point1 and point2 based on progress
             let x = lerp(point1.x, point2.x, progress);
             let y = lerp(point1.y, point2.y, progress);
+            console.log(progress)
 
             // Draw the line from point1 to the current interpolated point
             line(point1.x, point1.y, x, y);
@@ -325,16 +271,48 @@ function drawLinesWithinLetter() {
     });
 }
 
+// connect
+function drawLinesWithinLetter2() {
+    characters.forEach((character) => {
+        if (!character.randomPair) return;
+
+        let [i1, i2] = character.randomPair;
+        let point1 = character.points[i1];
+        let point2 = character.points[i2];
+
+        let x = lerp(point1.x, point2.x, progress);
+        let y = lerp(point1.y, point2.y, progress);
+        console.log(progress)
+
+        line(point1.x, point1.y, x, y);
+    });
+}
+
 //Connecting points between letters
 function generateEndPointsBetweenLetters() {
-    words.forEach((word) => {
-        if (word.letter === " ") {
+    characters.forEach((character) => {
+        if (character.letter === " ") {
             console.log("Space detected");
             return;
         }
         endPoints.push(
-            word.points[getRandomInteger(0, word.points.length - 1)]
+            character.points[getRandomInteger(0, character.points.length - 1)]
         );
+    });
+}
+
+function generateEndPointsWithinLetters() {
+    characters.forEach((character) => {
+        const points = character.points;
+        if (points.length < 2) return;
+    
+        let i1 = Math.floor(Math.random() * points.length);
+        let i2;
+        do {
+            i2 = Math.floor(Math.random() * points.length);
+        } while (i2 === i1);
+    
+        character.randomPair = [i1, i2];
     });
 }
 
@@ -347,6 +325,35 @@ function drawLinesBetweenLetters() {
         line(point1.x, point1.y, x, y);
     }
 }
+
+// SLIDER FUNCTIONS
+function updateSliderValue(value, valueSelector, variableName) {
+    const valueDisplay = document.querySelector(valueSelector);
+    valueDisplay.textContent = parseFloat(value);
+
+    // Update global variable
+    if (variableName == "sampleFactorValue") {
+        sampleFactorValue = parseFloat(value);
+    }  
+    else if (variableName == "simplifyThresholdValue") {
+        simplifyThresholdValue = parseFloat(value); 
+    }
+    else if (variableName == "progressIncrement"){
+        progressIncrement = parseFloat(value); 
+    }
+    else if (variableName == "gapValue"){
+        gapValue = parseFloat(value); 
+    }
+    else if (variableName == "strokeValueThin"){
+        strokeValueThin = parseFloat(value); 
+    }
+    else if (variableName == "fontSize"){
+        fontSize = parseFloat(value);
+    }
+
+    restartAnimation();
+}
+
 
 // GENERAL FUNCTIONS
 function getRandomInteger(x, y) {
