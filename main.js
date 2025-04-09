@@ -207,9 +207,9 @@ function draw() {
     createStroke(mainColor, strokeValueThin);
     if (!linesDrawn) {
         drawLinesWithinLetter();
-        drawDots();
+        // drawDots();
     }
-    // drawDots();
+    drawDots();
     drawLinesWithinLetter2();
 
 
