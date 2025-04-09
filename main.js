@@ -1,9 +1,13 @@
-//TRY OUT: Moving dots, animating the sample factor
-
 // COLORS
 let mainColor = "white";
 let bgColor = "black";
 let lineColor = "blue";
+const colors = [
+    "red",
+    "orange",
+    "green",
+    "pink"
+];
 
 // BOOLEANS
 let firstRun = true;
@@ -11,15 +15,14 @@ let linesDrawn = false;
 
 // TEXT STYLE VARIABLES
 let sampleFactorValue = 0.1;
-let simplifyThresholdValue = 0.01;
+let simplifyThresholdValue = 0;
 let progressIncrement = .015;
 //gapValue determines the distance between each point
 let gapValue = 1;
-let strokeValueThin = 4;
-let strokeValueThick = 12;
+let strokeValueThin = 4; let strokeValueThick = 12;
 let fontSize = 240;
-let xOffset;
-let yOffset;
+let xOffset; let yOffset;
+let amplitude = 6; let angle = 0;
 
 // TEXT VARIABLES
 let resultTextArray;
@@ -83,6 +86,7 @@ function setup() {
     }
 
     // Set up all sliders
+    setupSlider(".amplitudeSlider", ".amplitude", "amplitude");
     setupSlider(".sampleFactorSlider", ".sampleFactorValue", "sampleFactorValue");
     setupSlider(".simplifyThresholdSlider", ".simplifyThresholdValue", "simplifyThresholdValue");
     setupSlider(".progressIncrementSlider", ".progressIncrement", "progressIncrement");
@@ -90,6 +94,7 @@ function setup() {
     setupSlider(".strokeValueThinSlider", ".strokeValueThin", "strokeValueThin");
     setupSlider(".fontSizeSlider", ".fontSize", "fontSize");
 
+    angleMode(DEGREES);
 }
 
 function generateTextArray(inputText) {
@@ -117,10 +122,10 @@ function generateTextArray(inputText) {
 function restartAnimation() {
     // clear/reset canvas
     noLoop(); // Stop the draw loop
-    clear();
+    // clear();
     capturer.stop();
     isRecording = false;
-    background(bgColor);
+    // background(bgColor);
     textSize(fontSize);
     //x- and y-Offset just determine the top and left margins of the text; xOffset needs to be reset every restartAnimation since it +=, so that it doesn't add up and then fall off the page
     xOffset = 0;
@@ -201,10 +206,12 @@ function draw() {
     // THIN LINES (main stroke)
     createStroke(mainColor, strokeValueThin);
     if (!linesDrawn) {
-        // drawLinesWithinLetter();
+        drawLinesWithinLetter();
         drawDots();
     }
+    // drawDots();
     drawLinesWithinLetter2();
+
 
     createStroke(lineColor, strokeValueThin);
     drawLinesBetweenLetters();
@@ -240,11 +247,33 @@ function restartProgress() {
 }
 
 function drawDots() {
+    // animate the dots
+    oscillate();
+    
+    // just draw the dots, have them be static
+    // drawStatic();
+}
+
+function oscillate() {
+    background(bgColor);
     characters.forEach((character) => {
-        // Draw all lines gradually
-        character.points.forEach((point, index) => {
-            circle(point.x, point.y, 1);
-        });
+        const characterPoints = character.points;
+        for (let i=0; i < characterPoints.length; i++) {
+            circle(characterPoints[i].x + amplitude*sin(angle + i*25), characterPoints[i].y, 1);
+        }
+        angle += 1;
+
+    });
+}
+
+function drawStatic(){
+    characters.forEach((character) => {
+        const characterPoints = character.points;
+        for (let i=0; i < characterPoints.length; i++) {
+            circle(characterPoints[i].x, characterPoints[i].y, 1);
+        }
+        angle += 1;
+
     });
 }
 
@@ -263,7 +292,8 @@ function drawLinesWithinLetter() {
             // Interpolate between point1 and point2 based on progress
             let x = lerp(point1.x, point2.x, progress);
             let y = lerp(point1.y, point2.y, progress);
-            console.log(progress)
+
+            // console.log(progress)
 
             // Draw the line from point1 to the current interpolated point
             line(point1.x, point1.y, x, y);
@@ -282,7 +312,10 @@ function drawLinesWithinLetter2() {
 
         let x = lerp(point1.x, point2.x, progress);
         let y = lerp(point1.y, point2.y, progress);
-        console.log(progress)
+        // console.log(progress)
+
+        const randomColor = getRandomItemFromArray(colors);
+        stroke(randomColor);
 
         line(point1.x, point1.y, x, y);
     });
@@ -322,6 +355,7 @@ function drawLinesBetweenLetters() {
         let point2 = endPoints[i + 1];
         let x = lerp(point1.x, point2.x, progress);
         let y = lerp(point1.y, point2.y, progress);
+        
         line(point1.x, point1.y, x, y);
     }
 }
@@ -350,6 +384,9 @@ function updateSliderValue(value, valueSelector, variableName) {
     else if (variableName == "fontSize"){
         fontSize = parseFloat(value);
     }
+    else if (variableName == "amplitude"){
+        amplitude = parseFloat(value);
+    }
 
     restartAnimation();
 }
@@ -358,6 +395,10 @@ function updateSliderValue(value, valueSelector, variableName) {
 // GENERAL FUNCTIONS
 function getRandomInteger(x, y) {
     return Math.floor(Math.random() * (y - x + 1)) + x;
+}
+
+function getRandomItemFromArray(array) {
+   return array[Math.floor(Math.random()*array.length)];
 }
 
 function saveGIF() {
